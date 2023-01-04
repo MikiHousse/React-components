@@ -1,8 +1,9 @@
 import React from 'react'
-import { useState } from 'react'
+// import { useState } from 'react'
 
-const Counter = (props) => {
+const Counter = (props, {min, max}) => {
     const {value} = props
+    // const {price} = props
 
     const formatValue = () => {
         return value === 0 ? 'empty' : value;
@@ -17,11 +18,12 @@ const Counter = (props) => {
         if (! 'bg-slate-300') {
             color += ' bg-slate-700'
         } return color += ' bg-slate-300'
-
     }
 
+
     const handleIncrement = () => {
-        props.onIncrement(props.id)
+            props.onIncrement(props.id)
+
     }
 
     const handleDecrement = () => {
@@ -35,6 +37,7 @@ const Counter = (props) => {
             <div >
                 <div className='pt-10 flex justify-center gap-5'>
                     <span>{props.name}</span>
+                    <span>{props.price}$</span>
                     <h1 className={colotCount()}>{formatValue()}</h1>
                     <div className=''>
                         <button className={clickCount()} onClick={handleIncrement}>+</button>
@@ -51,4 +54,5 @@ const Counter = (props) => {
     )
 }
 
-export default Counter;
+
+export default Counter

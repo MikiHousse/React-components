@@ -1,9 +1,10 @@
 import List from './components/List'
 
 function App() {
+
   return (
     <div className="App">
-      <List/>
+      <List min={1} max={5}/>
     </div>
   );
 }
