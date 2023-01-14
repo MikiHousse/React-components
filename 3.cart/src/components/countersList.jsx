@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import Counter from './counter'
 
 const CountersList = () => {
@@ -12,14 +12,6 @@ const CountersList = () => {
 
     const [counters, setCounters] = useState(data)
 
-    // let setValue = (id, value) => {
-    //     setCounters(counters.map(count => count.id = id ? count : ({ ...count, value})))
-    // }
-
-    // const formatPrice = () => {
-    //     return price === 0 ? 'Корзина пуста' : price;
-    // }
-
     const handleDelete = (id) => {
         const newCounters = counters.filter(c => c.id !== id)
         setCounters(newCounters)
@@ -31,6 +23,8 @@ const CountersList = () => {
     //     newPrice[sumPrice].price++
     //     console.log('sum')
     // }
+
+
     const summary = () => {
         return counters.reduce((acc, id) => {
             return acc + id.price * id.value;
@@ -82,7 +76,7 @@ const CountersList = () => {
                 min={1}
                 max={10}/>
             ))}
-            <span>{summary()}</span>
+            <span>{total}</span>
             <button className='border-2 px-10 bg-red-300 hover:bg-slate-400 rounded-lg' onClick={handleReset}>Reset</button>
         </div>
   )

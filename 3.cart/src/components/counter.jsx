@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react';
 // import { useState } from 'react'
 
 const Counter = (props, {min, max}) => {
@@ -13,12 +14,27 @@ const Counter = (props, {min, max}) => {
         classes += value === 0 ? 'text-slate-500' : 'text-red-500';
         return classes
     }
-    const clickCount = () => {
-        let color = 'border-2 px-10 hover:bg-slate-400 rounded-lg ';
-        if (! 'bg-slate-300') {
-            color += ' bg-slate-700'
-        } return color += ' bg-slate-300'
+
+    const [color, setColor] = useState(false)
+    let colors = 'border-2 px-10 hover:bg-slate-400 rounded-lg ';
+
+    const changeColor = () => {
+        if (!color) {
+            setColor(!color)
+            return colors += ' bg-slate-700'
+        } else {
+            return colors += ' bg-slate-300'
+        }
     }
+
+    // const clickCount = () => {
+    //     // let buttonStyle = document.button.style;
+        
+    //     let color = 'border-2 px-10 hover:bg-slate-400 rounded-lg ';
+    //     if (!'bg-slate-300') {
+    //         color += ' bg-slate-700'
+    //     } return color += ' bg-slate-300'
+    // }
 
 
     const handleIncrement = () => {
@@ -40,7 +56,7 @@ const Counter = (props, {min, max}) => {
                     <span>{props.price}$</span>
                     <h1 className={colotCount()}>{formatValue()}</h1>
                     <div className=''>
-                        <button className={clickCount()} onClick={handleIncrement}>+</button>
+                        <button className={changeColor()} onClick={handleIncrement}>+</button>
                     </div>
                     <div className=''>
                         <button className='border-2 px-10 bg-slate-300 hover:bg-slate-400 rounded-lg' onClick={handleDecrement}>-</button>
