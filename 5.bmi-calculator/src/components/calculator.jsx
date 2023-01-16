@@ -11,10 +11,15 @@ const Calculator = () => {
     const h = height;
     const m = weight;
     const result = Math.round((m / h ** 2) * 10000)
-    const Under = 'Underweight'
 
     const bmi = () => {
-        
+        if(result < 18) {
+            return <span className=' text-yellow-600'>Underweight</span>
+        } else if (result < 19 || result < 25) {
+            return <span className=' text-green-600'>Normal Weight</span>
+        } else if (result < 30 || result < 93) {
+            return <span className=' text-red-600'>Obese</span>
+        }
     }
 
     const changeHieght = (e) => {
@@ -49,7 +54,7 @@ const Calculator = () => {
             <div>{weight}</div>
         </form>
         <hr />
-        <p>BMI: {result} <span></span> </p>
+        <p>BMI: {result} {bmi()}</p>
     </div>
   )
 }
