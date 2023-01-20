@@ -3,22 +3,41 @@ import { useState } from 'react'
 
 const Form = () => {
     const [tweet, setTweet] = useState('');
+    const [lock, setLock] = useState(true);
     const MAX_LENGTH = 140;
     let result = MAX_LENGTH - tweet.length;
     
+
+
     const send = () => {
         return alert(`'${tweet}'`)
+    }
+
+    const handleChange = (e) => {
+        setTweet(e.target.value)
+    }
+
+    const dis = (e) => {
+        if (e.target.value.length >= MAX_LENGTH) {
+            setLock(false)
+            console.log(false)
+        } else {
+            setLock(true)
+            console.log(true)
+        }
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
     }
 
 
   return (
     <div className=' container mx-auto my-5'>
         <h1 className='pb-4 text-xl'>Tweet</h1>
-        <form onSubmit={e => {
-            e.preventDefault()
-        }}>
-            <textarea className='border-2 border-emerald-500' placeholder='Input up to 140 characets...' value={tweet}
-            onChange={e => setTweet(e.target.value)} cols="30" rows="5"/>
+        <form onSubmit={handleSubmit} disabled={!dis}>
+            <textarea  className='border-2 border-emerald-500' placeholder='Input up to 140 characets...' value={tweet}
+            onChange={e => handleChange(e)} cols="30" rows="5"/>
         </form>
         <br />
         <div className='flex'>
