@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 const Slider = () => {
     const [value, setValue] = useState({
-        r: 255,
-        g: 255,
+        r: 130,
+        g: 80,
         b: 255,
     })
     const MIN = 0;
@@ -34,18 +34,19 @@ const Slider = () => {
         });
     }
 
+    const rgbhex = (e) => {
+        let hex = ''
+        hex = hex + parseInt(e, 10).toString(16)
 
-    function componentToHex(c) {
-        const hex = c.toString(16);
-        return hex.length === 1 ? "0" + hex : hex;
+        if (hex.length === 1) {
+            hex += 0
+        }
+        return hex.toUpperCase()
     }
-    
-    function rgb2hex(r, g, b) {
-        return "#" + componentToHex(value.r) + componentToHex(value.g) + componentToHex(value.b);
+
+    function rgbHex() {
+        return "#" + rgbhex(value.r) + rgbhex(value.g) + rgbhex(value.b)
     }
-
-    console.log(rgb2hex())
-
 
     return (
         <div className=' container mx-auto'>
@@ -81,8 +82,8 @@ const Slider = () => {
                 <span>{value.b}</span>
             </form>
             <div className='border-2 mt-3 w-20 h-20' style={styleConfig}></div>
-            <p>Dec: rgba ({value.r}, {value.g}, {value.b}, 1)</p>
-            <p>Hex: {rgb2hex()}</p>
+            <p>Dec: rgba({value.r}, {value.g}, {value.b}, 1)</p>
+            <p>Hex: {rgbHex()}</p>
         </div>
     )
 }
