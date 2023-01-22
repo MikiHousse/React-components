@@ -6,15 +6,17 @@ const Generate = () => {
     const [password, setPassword] = useState('******');
     const [checked, setChecked] = useState(false);
     const [checkedUp, setCheckedUp] = useState(false)
-
+    const [checkedSym, setCheckedSym] = useState(false)
     const MIN = 6;
     const MAX = 12;
 
     const handleClick = () => setChecked(!checked);
     console.log(checked)
 
-    const handleClickUp = () => setCheckedUp(!checked);
+    const handleClickUp = () => setCheckedUp(!checkedUp);
     console.log(checkedUp)
+
+    const handleClickSym = () => setCheckedSym(!checkedSym);
 
     const change  = (e) => {
         setLength(e.target.value)
@@ -47,20 +49,44 @@ const Generate = () => {
         setPassword(ran(legnth))
     }
 
-    // const genUp = () => {
-    //     const ran = () => {
-    //         let result = '';
-    //         const char = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    //         const charactersLength = char.length;
-    //         for (let i = 0; i < legnth; i++) {
-    //             result += char.charAt(Math.floor(Math.random() * charactersLength));
-    //         }
-    //         return result;
+    const genUp = () => {
+        const ran = () => {
+            let result = '';
+            const char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const charactersLength = char.length;
+            for (let i = 0; i < legnth; i++) {
+                result += char.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+
+        setPassword(ran(legnth))
+    }
+
+    const genSym = () => {
+        const ran = () => {
+            let result = '';
+            const char = '!@#$%^&*()<>,.?/[]{}-=_+|/0123456789';
+            const charactersLength = char.length;
+            for (let i = 0; i < legnth; i++) {
+                result += char.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+        setPassword(ran(legnth))
+    }
+    // const c = () => {
+    //     if (checked) {
+    //         return genLow
+    //     } else {
+    //         gen
     //     }
-
-    //     setPassword(ran(legnth))
+    //     if (checkedUp) {
+    //         return genUp
+    //     } else {
+    //         return gen
+    //     }
     // }
-
     
 
   return (
@@ -79,22 +105,27 @@ const Generate = () => {
             />
             <p className='pl-2'>{legnth}</p>
         </form>
-        <div>
-            <button className=' px-5 py-2 bg-sky-500 rounded-xl' onClick={checked ? genLow : gen}>Generate</button>
-        </div>
-        <div>
-            <form >
+        <div className='pb-4'>
+            <form className='pb-2'>
                 <input disabled type="checkbox" name='Numbers (always enabled)' defaultChecked/>
                 <label htmlFor="Numbers (always enabled)">Numbers (always enabled)</label>
             </form>
-            <form >
+            <form className='pb-2'>
                 <input type="checkbox" name='Lowercase' onClick={handleClick} checked={checked}/> 
                 <label htmlFor="Lowercase">Lowercase</label>
             </form>
-            {/* <form >
+            <form className='pb-2'>
                 <input type="checkbox" name='Uppercase' onClick={handleClickUp} checked={checkedUp}/> 
                 <label htmlFor="Uppercase">Uppercase</label>
-            </form> */}
+            </form>
+            <form className='pb-2'>
+                <input type="checkbox" name='Symbols' onClick={handleClickSym} checked={checkedSym}/> 
+                <label htmlFor="Symbols">Symbols</label>
+            </form>
+        </div>
+        <div>
+            <button className=' px-5 py-2 bg-sky-500 rounded-xl' 
+            onClick={checked ? genLow : gen && checkedUp ? genUp : gen && checkedSym ? genSym : gen}>Generate</button>
         </div>
     </div>
   )
