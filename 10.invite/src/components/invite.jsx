@@ -3,14 +3,15 @@ import { Users } from './users'
 import { data } from './mock'
 
 
-const Invite = ({searchValue, onChangeSearchValuee, invites, onClickInvite}) => {
-  return (
+const Invite = ({searchValue, onChangeSearchValuee, invites, onClickInvite, onClickSentInvites}) => {
+    const dis = invites.length > 0
+    return (
     <>
         <div className='w-[400px] h-[650px] my-[50px] mx-auto bg-white rounded-3xl p-10'>
             <div>
                 <input value={searchValue} onChange={onChangeSearchValuee} className='border-2 border-zinc-300 p-4 rounded-2xl w-full pl-6' type="text" placeholder='Найти пользователя'/>
             </div>
-                <ul className=' list-none p-0 m-0 overflow-auto mt-7 h-[73%]'>
+                <ul className=' list-none p-0 m-0 overflow-auto mt-7 h-[75%]'>
                     {
                         data.filter(obj => {
                             const fullName = (obj.first_name + obj.last_name).toLowerCase();
@@ -26,9 +27,10 @@ const Invite = ({searchValue, onChangeSearchValuee, invites, onClickInvite}) => 
                         ))
                     }
                 </ul>
-            <div className='text-center'>
-                <button className='bg-orange-400 w-full px-4 py-4 transition-all border rounded-2xl hover:bg-orange-500 active:bg-orange-300'>Отправить приглашение</button>
-            </div>
+                
+                <div className='text-center'>
+                    <button disabled={!dis} onClick={onClickSentInvites} className='bg-orange-400 w-full px-4 py-4 transition-all border rounded-2xl hover:bg-orange-500 active:bg-orange-300'>Отправить приглашение</button>
+                </div>
         </div>
     </>
   )

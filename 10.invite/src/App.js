@@ -21,10 +21,14 @@ function App({data}) {
     }
   }
 
+  const onClickSentInvites = () => {
+    setSuccess(true)
+  }
+
   return (
     <div className="App">
       {
-        success ? (<Succes/>
+        success ? (<Succes count={invites.length}/>
         ) : (
         <Invite 
           onChangeSearchValuee={onChangeSearchValuee}
@@ -32,6 +36,7 @@ function App({data}) {
           searchValue={searchValue} 
           items={data}
           invites={invites}
+          onClickSentInvites={onClickSentInvites}
           />)
       }
 
