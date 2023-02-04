@@ -17,12 +17,25 @@ const Todo = () => {
     const [artists, setArtists] = useState(initialTodos);
     const [check, setCheck] = useState(false);
 
-    const handlecCheck = (index) => {
-        if (!check) {
-            setCheck(true) 
-        } else {
-            setCheck(false) 
-        }
+    const handlecCheck = (artistId) => {
+        setArtists(artists.map(artist => {
+            if (artist.id === artistId) {
+                return check ? {
+                    ...artist,
+                    check: artist.check = setCheck(true)
+                } : check 
+            } else {
+                return {
+                    ...artist,
+                    check: artist.check
+                }
+            }
+        }))
+        // if (!check) {
+        //     setCheck(true) 
+        // } else {
+        //     setCheck(false) 
+        // }
     }
 
     return (
@@ -47,7 +60,7 @@ const Todo = () => {
           <ul>
             {artists.map(artist => (
                 
-              <li className={`pr-4 text-xl ${check ? 'line-through' : ''}`} key={artist.id}><input onClick={() => handlecCheck()} className='mr-2' type="checkbox" />{artist.name}{' '}<button className='rotate-45' onClick={() => {
+              <li className={`pr-4 text-xl ${check ? 'line-through' : ''}`} key={artist.id}><input onClick={() => handlecCheck(artist.id)} className='mr-2' type="checkbox" />{artist.name}{' '}<button className='rotate-45' onClick={() => {
                 setArtists(
                     artists.filter(a => a.id !== artist.id),
                 )
