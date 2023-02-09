@@ -20,17 +20,27 @@ const Form = () => {
         e.preventDefault()
     }
 
+    const handleDisabled = () => {
+        return result === MAX_LENGTH ? true : false
+    }
+
   return (
-    <div className=' container mx-auto my-5'>
-        <h1 className='pb-4 text-xl'>Tweet</h1>
+    <div className='text-white w-1/4 mx-auto p-10'>
+        <h1 className='pb-4 text-xl font-bold'>Tweet</h1>
         <form onSubmit={handleSubmit}>
-            <textarea maxlength={MAX_LENGTH} className='border-2 border-emerald-500' placeholder='Input up to 140 characets...' value={tweet}
+            <textarea maxlength={MAX_LENGTH} 
+            className='border-2 border-gray-400 bg-slate-700 pl-2 rounded-xl' 
+            placeholder='Input up to 140 characets...' 
+            value={tweet}
             onChange={e => handleChange(e)} cols="30" rows="5"/>
         </form>
         <br />
         <div className='flex'>
-            <button type='submit' onClick={send} className='bg-amber-400 px-10 py-4 hover:bg-amber-500 rounded-xl'>Tweet</button>
-            <p className='pl-24'>{result}</p>
+            <button disabled={handleDisabled()} 
+            type='submit' 
+            onClick={send} 
+            className='bg-blue-500 px-10 py-4 hover:bg-blue-600 rounded-xl disabled:bg-slate-400'>Tweet</button>
+            <p className='pl-28 pt-3 text-xl text-blue-500 font-semibold'>{result}</p>
         </div>
     </div>
   )
