@@ -2,7 +2,7 @@ import Calculator from "./components/calculator";
 
 function App() {
   return (
-    <div className="App">
+    <div className="bg-zinc-800 h-screen">
       <Calculator/>
     </div>
   );
