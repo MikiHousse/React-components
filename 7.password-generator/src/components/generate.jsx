@@ -75,19 +75,19 @@ const Generate = () => {
         }
         setPassword(ran(legnth))
     }
-    // const c = () => {
-    //     if (checked) {
-    //         return genLow
-    //     } else {
-    //         gen
-    //     }
-    //     if (checkedUp) {
-    //         return genUp
-    //     } else {
-    //         return gen
-    //     }
-    // }
-    
+
+    const genSs = () => {
+        const ran = () => {
+            let result = '';
+            const char = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const charactersLength = char.length;
+            for (let i = 0; i < legnth; i++) {
+                result += char.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+        setPassword(ran(legnth))
+    }
 
   return (
     <div className=' container mx-auto'>
@@ -125,7 +125,7 @@ const Generate = () => {
         </div>
         <div>
             <button className=' px-5 py-2 bg-sky-500 rounded-xl' 
-            onClick={checked ? genLow : gen && checkedUp ? genUp : gen && checkedSym ? genSym : gen}>Generate</button>
+            onClick={(checked && checkedUp) ? genSs : gen && checked ? genLow : gen && checkedUp ? genUp : gen && checkedSym ? genSym : gen}>Generate</button>
         </div>
     </div>
   )
