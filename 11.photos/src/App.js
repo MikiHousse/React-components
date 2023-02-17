@@ -15,8 +15,8 @@ function App() {
   const [searchValue, setSearchValue] = useState('')
   const [page, setPage] = useState(1)
   
-  const st = 'active inline-block py-3 px-5 bg-slate-100 rounded-xl mr-3 cursor-pointer font-medium text-lg border-2 hover:bg-slate-300 active:bg-slate-200 transition-all';
-  const active = 'active inline-block py-3 px-5 rounded-xl mr-3 cursor-pointer font-medium text-lg border-2 hover:bg-slate-300 bg-slate-200 transition-all';
+  const st = 'inline-block py-3 px-5 bg-slate-100 rounded-xl mr-3 cursor-pointer font-medium text-lg border-2 hover:bg-slate-300 active:bg-slate-200 transition-all';
+  const active = 'inline-block py-3 px-5 rounded-xl mr-3 cursor-pointer font-medium text-lg border-2 hover:bg-slate-300 bg-slate-200 transition-all';
   const stPg = 'inline-block py-2 px-4 bg-white text-lg rounded-xl mr-4 border cursor-pointer active:bg-black active:text-white transition-all';
   const activePg = "active inline-block py-2 px-4 text-lg rounded-xl mr-4 border cursor-pointer bg-black text-white transition-all"
   return (

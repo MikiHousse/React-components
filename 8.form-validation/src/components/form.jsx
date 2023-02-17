@@ -3,7 +3,7 @@ import useInput from './useInput'
 
 const Form = () => {
     const email = useInput('', {isEmpty: true, minLength: 3, isEmail: true})
-    const password = useInput('', {isEmpty: true, minLength: 5, maxLength: 8})
+    const password = useInput('', {isEmpty: true, minLength: 5, maxLength: 12})
 
 
   return (
