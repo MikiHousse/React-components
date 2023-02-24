@@ -19,9 +19,23 @@ const Todo = () => {
 
     const [name, setName] = useState('');
     const [artists, setArtists] = useState(initialTodos);
-	const [filter, setFilter] = useState(all)
+	  const [filter, setFilter] = useState(all);
+    const [selectedIds, setSelectedIds] = useState([]);
     const dataActive = 'text-blue-600 hover:text-blue-500 cursor-pointer font-bold';
     const dataDef = 'text-blue-400 hover:text-blue-500 cursor-pointer';
+
+    function handleToggle(toggledId) {
+      if (selectedIds.includes(toggledId)) {
+        setSelectedIds(selectedIds.filter(id =>
+          id !== toggledId
+        ));
+      } else {
+        setSelectedIds([
+          ...selectedIds,
+          toggledId
+        ]);
+      }
+    }
 
     const handlecCheck = (artistId) => {
       setArtists(
@@ -64,9 +78,11 @@ const Todo = () => {
           <ul>
             {filtered.map(artist => (
               <li className={`pr-4 text-xl ${artist.check ? 'line-through' : ''}`} key={artist.id}>
-                <input onClick={() => 
-                {handlecCheck(artist.id)}} 
-                className='mr-2' 
+                <input 
+                onClick={() => {handlecCheck(artist.id)}}
+                checked={artist.check}
+                className='mr-2 cursor-pointer'
+                onToggle={() => handleToggle(artist.id)}
                 type="checkbox" />{artist.name}{' '}
                 <button className='rotate-45' onClick={() => {
                 setArtists(
