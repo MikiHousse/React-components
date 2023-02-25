@@ -1,10 +1,10 @@
-import List from './components/List'
+import Count from './components/Count'
 
 function App() {
 
   return (
     <div className="App">
-      <List min={1} max={5}/>
+      <Count min={1} max={5}/>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 
+//TODO: Оформить
 const Calculator = () => {
     const [height, setHeight] = useState(140)
     const [weight, setWeight] = useState(30)
@@ -8,13 +9,11 @@ const Calculator = () => {
     const MAX_HIEGHT = 200;
     const MIN_WEIGHT = 30;
     const MAX_WEIGHT = 180;
-    const h = height;
-    const m = weight;
 
-    const result = ((m / h ** 2) * 10000).toFixed(1)
+    const result = ((weight / height ** 2) * 10000).toFixed(1)
 
-    const bmi = () => {
-        if(result < 18) {
+    const bmiСategory = () => {
+        if (result < 18) {
             return <span className='text-yellow-600'>Underweight</span>
         } else if (result < 19 || result < 25) {
             return <span className='text-green-600'>Normal Weight</span>
@@ -38,7 +37,8 @@ const Calculator = () => {
         <h1 className=' text-2xl pb-4'>BMI Calculator</h1>
         <p className='text-xl'>Height, cm</p>
         <form className='flex' action="">
-            <input type="range"
+            <input 
+                type="range"
                 onChange={changeHieght}
                 min={MIN_HIEGHT}
                 max={MAX_HIEGHT}
@@ -48,7 +48,8 @@ const Calculator = () => {
         </form>
         <p className='text-xl'>Weight, kg</p>
         <form className='flex pb-4' action="">
-            <input type="range"
+            <input 
+                type="range"
                 onChange={changeWeight}
                 min={MIN_WEIGHT}
                 max={MAX_WEIGHT}
@@ -56,7 +57,7 @@ const Calculator = () => {
                 value={weight}/>
             <div>{weight}</div>
         </form>
-        <p className='text-xl'>BMI: {result} {bmi()}</p>
+        <p className='text-xl'>BMI: {result} {bmiСategory()}</p>
     </div>
   )
 }

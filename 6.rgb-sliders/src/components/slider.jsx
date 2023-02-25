@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-
+//TODO: Оформить
 const Slider = () => {
     const [value, setValue] = useState({
         r: 130,
@@ -9,10 +9,10 @@ const Slider = () => {
     })
     const MIN = 0;
     const MAX = 255;
-    let rgb = `rgb(${value.r},${value.g},${value.b})`
+    let rgbValue = `rgb(${value.r},${value.g},${value.b})`
 
-    let styleConfig = { backgroundColor : rgb}
-
+    let styleConfig = {backgroundColor : rgbValue}
+    //TODO: Проверить можно ли объедянить все эти 3 функции изменения значений
     const changeR = (e) => {
         setValue({
             ...value,
@@ -34,7 +34,7 @@ const Slider = () => {
         });
     }
 
-    const rgbhex = (e) => {
+    const rgbToHex = (e) => {
         let hex = ''
         hex = hex + parseInt(e, 10).toString(16)
 
@@ -45,15 +45,16 @@ const Slider = () => {
     }
 
     function rgbHex() {
-        return "#" + rgbhex(value.r) + rgbhex(value.g) + rgbhex(value.b)
+        return "#" + rgbToHex(value.r) + rgbToHex(value.g) + rgbToHex(value.b)
     }
 
     return (
-        <div className=' container mx-auto'>
+        <div className='container mx-auto'>
             <h1 className='text-2xl '>Color chooser</h1>
             <p>R</p>
             <form action="">
-                <input type="range"
+                <input 
+                type="range"
                 onChange={changeR}
                 min={MIN}
                 max={MAX}
@@ -63,7 +64,8 @@ const Slider = () => {
             </form>
             <p>G</p>
             <form action="">
-                <input type="range"
+                <input 
+                type="range"
                 onChange={changeG}
                 min={MIN}
                 max={MAX}
@@ -73,7 +75,8 @@ const Slider = () => {
             </form>
             <p>B</p>
             <form action="">
-                <input type="range"
+                <input 
+                type="range"
                 onChange={changeB}
                 min={MIN}
                 max={MAX}
@@ -81,7 +84,7 @@ const Slider = () => {
                 />
                 <span>{value.b}</span>
             </form>
-            <div className='border-2 mt-3 w-20 h-20' style={styleConfig}></div>
+            <div className='border-2 mt-3 w-40 h-40' style={styleConfig}></div>
             <p>Dec: rgba({value.r}, {value.g}, {value.b}, 1)</p>
             <p>Hex: {rgbHex()}</p>
         </div>
