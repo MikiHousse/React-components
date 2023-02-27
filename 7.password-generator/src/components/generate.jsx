@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 
 const Generate = () => {
-    const [legnth, setLength] = useState(6);
+    const [length, setLength] = useState(6);
     const [password, setPassword] = useState('******');
     const [checked, setChecked] = useState(false);
     const [checkedUp, setCheckedUp] = useState(false)
@@ -22,31 +22,50 @@ const Generate = () => {
         setLength(e.target.value)
     }
     // const char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const generation = () => {
+        const ran = () => {
+            let result = '';
+            let char = '0123456789';
+            let charLow = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            let charLowUp = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const charactersLength = char.length;
+            if (checked) {
+                char += 'abcdefghijklmnopqrstuvwxyz'
+            } 
+            
+            for (let i = 0; i < length; i++) {
+                console.log(char)
+                result += char.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result
+        }
+        setPassword(ran(length))
+    }
     const gen = () => {
         const ran = () => {
             let result = '';
             const char = '0123456789';
             const charactersLength = char.length;
-            for (let i = 0; i < legnth; i++) {
+            for (let i = 0; i < length; i++) {
                 result += char.charAt(Math.floor(Math.random() * charactersLength));
             }
             return result;
         }
 
-        setPassword(ran(legnth))
+        setPassword(ran(length))
     }
     const genLow = () => {
         const ran = () => {
             let result = '';
             const char = 'abcdefghijklmnopqrstuvwxyz0123456789';
             const charactersLength = char.length;
-            for (let i = 0; i < legnth; i++) {
+            for (let i = 0; i < length; i++) {
                 result += char.charAt(Math.floor(Math.random() * charactersLength));
             }
             return result;
         }
 
-        setPassword(ran(legnth))
+        setPassword(ran(length))
     }
 
     const genUp = () => {
@@ -54,13 +73,13 @@ const Generate = () => {
             let result = '';
             const char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             const charactersLength = char.length;
-            for (let i = 0; i < legnth; i++) {
+            for (let i = 0; i < length; i++) {
                 result += char.charAt(Math.floor(Math.random() * charactersLength));
             }
             return result;
         }
 
-        setPassword(ran(legnth))
+        setPassword(ran(length))
     }
 
     const genSym = () => {
@@ -68,12 +87,12 @@ const Generate = () => {
             let result = '';
             const char = '!@#$%^&*()<>,.?/[]{}-=_+|/0123456789';
             const charactersLength = char.length;
-            for (let i = 0; i < legnth; i++) {
+            for (let i = 0; i < length; i++) {
                 result += char.charAt(Math.floor(Math.random() * charactersLength));
             }
             return result;
         }
-        setPassword(ran(legnth))
+        setPassword(ran(length))
     }
 
     const genSs = () => {
@@ -81,12 +100,12 @@ const Generate = () => {
             let result = '';
             const char = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             const charactersLength = char.length;
-            for (let i = 0; i < legnth; i++) {
+            for (let i = 0; i < length; i++) {
                 result += char.charAt(Math.floor(Math.random() * charactersLength));
             }
             return result;
         }
-        setPassword(ran(legnth))
+        setPassword(ran(length))
     }
 
   return (
@@ -98,12 +117,12 @@ const Generate = () => {
         <form className='flex pb-5' action="">
             <p className='pr-2'>Length</p>
             <input type="range" 
-            value={legnth}
+            value={length}
             onChange={change}
             min={MIN}
             max={MAX}
             />
-            <p className='pl-2'>{legnth}</p>
+            <p className='pl-2'>{length}</p>
         </form>
         <div className='pb-4'>
             <form className='pb-2'>
@@ -125,10 +144,12 @@ const Generate = () => {
         </div>
         <div>
             <button className=' px-5 py-2 bg-sky-500 rounded-xl' 
-            onClick={(checked && checkedUp) ? genSs : gen && checked ? genLow : gen && checkedUp ? genUp : gen && checkedSym ? genSym : gen}>Generate</button>
+            onClick={generation}>Generate</button>
         </div>
     </div>
   )
 };
 
 export default Generate
+
+// (checked && checkedUp) ? genSs : gen && checked ? genLow : gen && checkedUp ? genUp : gen && checkedSym ? genSym : gen

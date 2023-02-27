@@ -8,49 +8,32 @@ const initialTodos = [
   ];
 
 const all = 0;
-const checked = 1;
-const active = 2;
+const active = 1;
+const checked = 2;
+
 
 let nextId = initialTodos.length;
 
 const Todo = () => {
-    const addDis = 'bg-blue-300 px-4 py-2 rounded-md hover:bg-blue-700 hover:text-white transition-all active:bg-blue-400';
-    const noDis = 'bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-700 hover:text-white transition-all active:bg-blue-400';
 
     const [name, setName] = useState('');
-    const [artists, setArtists] = useState(initialTodos);
+    const [todos, setTodos] = useState(initialTodos);
 	  const [filter, setFilter] = useState(all);
-    const [selectedIds, setSelectedIds] = useState([]);
-    const dataActive = 'text-blue-600 hover:text-blue-500 cursor-pointer font-bold';
-    const dataDef = 'text-blue-400 hover:text-blue-500 cursor-pointer';
-
-    function handleToggle(toggledId) {
-      if (selectedIds.includes(toggledId)) {
-        setSelectedIds(selectedIds.filter(id =>
-          id !== toggledId
-        ));
-      } else {
-        setSelectedIds([
-          ...selectedIds,
-          toggledId
-        ]);
-      }
-    }
-
-    const handlecCheck = (artistId) => {
-      setArtists(
-        artists.map(artist => ({
-          ...artist,
-          check: artistId === artist.id ? artist.check = true : artist.check = false
+    
+    const handlecCheck = (todoId) => {
+      setTodos(
+        todos.map(todo => ({
+          ...todo,
+          check: todoId === todo.id ? !todo.check : todo.check
         }))
       )
     }
-	//FIXME: При клике на один из фильтров и обратно слитают чекбоксы и не правильно происходить фильтрация
-	const filtered = artists.filter(artist => {
+
+	const filtering = todos.filter(todo => {
 		if (filter === checked) {
-			return artist.check
+			return todo.check
 		} else if (filter === active) {
-			return !artist.check
+			return !todo.check
 		} else {
 			return true
 		}
@@ -60,7 +43,7 @@ const Todo = () => {
         <div className='container mx-auto'>
           <h1>Todo List</h1>
           <input
-            className=' rounded-lg pl-3'
+            className='rounded-lg pl-3'
             value={name}
             onChange={e => setName(e.target.value)}
           />
@@ -68,37 +51,37 @@ const Todo = () => {
             disabled={name.length === 0}
             onClick={() => {
               setName('');
-              setArtists([
-                ...artists,
-                { id: nextId++, name: name, check: false }
+              setTodos([
+                { id: nextId++, name: name, check: false },
+                ...todos
               ]);
             }}
-            className={name.length === 0 ? addDis : noDis}
+            className={`px-4 py-2 rounded-md transition-all 
+            ${name.length === 0 ? 'bg-blue-300' : 'bg-blue-500 active:bg-blue-400 hover:bg-blue-700 hover:text-white'}`}
           >Add</button>
           <ul>
-            {filtered.map(artist => (
-              <li className={`pr-4 text-xl ${artist.check ? 'line-through' : ''}`} key={artist.id}>
-                <input 
-                onClick={() => {handlecCheck(artist.id)}}
-                checked={artist.check}
+            {filtering.map(todo => (
+              <li className={`pr-4 text-xl ${todo.check ? 'line-through' : ''}`} key={todo.id}>
+                <input
+                onClick={() => handlecCheck(todo.id)}
+                checked={todo.check}
                 className='mr-2 cursor-pointer'
-                onToggle={() => handleToggle(artist.id)}
-                type="checkbox" />{artist.name}{' '}
+                type="checkbox" />{todo.name}{' '}
                 <button className='rotate-45' onClick={() => {
-                setArtists(
-                    artists.filter(a => a.id !== artist.id),
+                setTodos(
+                  todos.filter(t => t.id !== todo.id),
                 )
               }}>+</button></li>
             ))}
               </ul>
-              <div className='flex'>
-                <h3 className='pr-2'>Show:</h3>
-					<ul className='flex gap-2'>
-						<li className={filter === all ? dataActive : dataDef}><a href="/" onClick={e => {e.preventDefault(); setFilter(all)}}>All</a></li>
-						<li className={filter === active ? dataActive : dataDef}><a href="/" onClick={e => {e.preventDefault(); setFilter(active)}}>Active</a></li>
-						<li className={filter === checked ? dataActive : dataDef}><a href="/" onClick={e => {e.preventDefault(); setFilter(checked)}}>Done</a></li>
-					</ul>
-              </div>
+            <div className='flex'>
+              <h3 className='pr-2'>Show:</h3>
+					    <ul className='flex gap-2'>
+                <li className={`text-blue-600 hover:text-blue-500 cursor-pointer ${filter === all ? 'font-bold' : ''}`}><a href="/" onClick={e => {e.preventDefault(); setFilter(all)}}>All</a></li>
+                <li className={`text-blue-600 hover:text-blue-500 cursor-pointer ${filter === active ? 'font-bold' : ''}`}><a href="/" onClick={e => {e.preventDefault(); setFilter(active)}}>Active</a></li>
+                <li className={`text-blue-600 hover:text-blue-500 cursor-pointer ${filter === checked ? 'font-bold' : ''}`}><a href="/" onClick={e => {e.preventDefault(); setFilter(checked)}}>Done</a></li>
+					    </ul>
+            </div>
         </div>
 
       );

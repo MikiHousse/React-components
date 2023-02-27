@@ -11,8 +11,9 @@ const Slider = () => {
     const MAX = 255;
     let rgbValue = `rgb(${value.r},${value.g},${value.b})`
 
-    let styleConfig = {backgroundColor : rgbValue}
+    let styleConfig = {backgroundColor: rgbValue}
     //TODO: Проверить можно ли объедянить все эти 3 функции изменения значений
+
     const changeR = (e) => {
         setValue({
             ...value,
@@ -50,10 +51,10 @@ const Slider = () => {
 
     return (
         <div className='container mx-auto'>
-            <h1 className='text-2xl '>Color chooser</h1>
+            <h1 className='text-2xl'>Color chooser</h1>
             <p>R</p>
             <form action="">
-                <input 
+                <input
                 type="range"
                 onChange={changeR}
                 min={MIN}
