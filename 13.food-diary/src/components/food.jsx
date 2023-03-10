@@ -23,7 +23,7 @@ const Food = () => {
     const [searchValue, setSearchValue] = useState('')
     const step = 100;
     const onChangeSearchValuee = (e) => {
-        setSearchValue(e.target.value);
+            setSearchValue(e.target.value);
       }
 
     let newDate = new Date();
@@ -91,7 +91,7 @@ const Food = () => {
                                 setFoodCategory(
                                     foodCategorys.filter(t => t.id !== foodCategory.id),
                                 )
-                              }}>+</button></li>
+                            }}>+</button></li>
                         ))
                     }
             </ul>

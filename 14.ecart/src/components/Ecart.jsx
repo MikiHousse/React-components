@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 
+// Нужно ли в данном примере разделять код на компаненты
+
 const fruit = [
   {id: 0, name: 'Apple', price: 10, selected: 0, stock: 12},
   {id: 1, name: 'Melon', price: 20, selected: 0, stock: 5},
@@ -9,23 +11,46 @@ const fruit = [
 
 
 const Ecart = () => {
-  const products = fruit
-  const [count, setCount] = useState()
-  const [carts, setCarts] = useState({})
-  const order = (item) => {
-    // const itemIndex = carts.findIndex(cart => cart.id === item.id);
-    setCarts({...carts,  item})
+  // products множественное число product единственное число
+  const [products, setProducts] = useState(fruit)
+  // const [count, setCount] = useState()
+  const [cart, setCart] = useState([])
+
+  //Не могу понять почему id в консоли выводит правильно а все остальное он пишет undefined
+  const putToCart = (id, count = 1) => {
+    setCart({
+      ...cart,
+      [id]: cart[id] + count
+    }, console.log(id)
+    )
   }
-  const upDisbaled = () => {
-    if (count >= 12) {
-      return true
-    }
+
+  // TODO: есть ли разниза межлу оператором in и === в данном примере 
+  // 1. проверить что в стоке есть достаточное доступных товаров 
+  // 2. если да то должны их вычесть из стока 
+  // 3. нужно сформировать объекст заказа 
+  // 4. очистить корзину
+  let buy = (id, stock = 1) => {
+    setCart(
+      {
+        ...cart,
+        // если кликнутый id есть в объекте то мы прибовляем к данному объекту еще 1 такой же товар если нет то создаем новый товар и пишем максимальное количество товара в данный момент
+        [id]: (id in cart) ? cart[id] + stock : Math.max(stock, 0),
+      }
+    )
+    console.log(id)
   }
-  const prevDisabled = () => {
-    if (count <= 0) {
-      return true
-    } 
-  }
+
+  // const upDisbaled = () => {
+  //   if (count >= 12) {
+  //     return true
+  //   }
+  // }
+  // const prevDisabled = () => {
+  //   if (count <= 0) {
+  //     return true
+  //   }
+  // }
 
   return (
     <div className='container mx-auto'>
@@ -33,12 +58,12 @@ const Ecart = () => {
         <h1 className='text-4xl'>Ecart</h1>
         <div>
           {
-            carts.length ? (
-              carts.map(cart => (
+            cart.length ? (
+              cart.map(cart => (
                 <div key={cart.id}>
-                    <button disabled={upDisbaled()} className='border-2 rounded-lg p-2 border-green-400 mr-2 disabled:bg-blue-200'>+1</button>
-                    <button disabled={prevDisabled()} className='border-2 rounded-lg p-2 border-green-400 disabled:bg-blue-200'
-                    onClick={() => setCount(count - 1)}>-1</button>
+                    <button className='border-2 rounded-lg p-2 border-green-400 mr-2 disabled:bg-blue-200'>+1</button>
+                    <button className='border-2 rounded-lg p-2 border-green-400 disabled:bg-blue-200'
+                    >-1</button>
                     <span>{cart.name} - ${cart.price} x {cart.selected}</span> 
                 </div>))) : (<p className='pt-4'>Your cart is empty</p>
             )
@@ -52,7 +77,9 @@ const Ecart = () => {
           products.map(product => (
             <div key={product.id} className='pt-4'>
               <button className='border-2 rounded-lg p-2 border-green-400'
-              onClick={() => order(product.id)}
+              onClick={() => {
+                buy(product.id)
+              }}
               >Buy</button>
               {' '}{product.name} - {product.price}$ ({product.selected} selected, {product.stock} in stock)
             </div>
